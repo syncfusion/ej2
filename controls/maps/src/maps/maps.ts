@@ -855,7 +855,7 @@ export class Maps extends Component<HTMLElement> implements INotifyPropertyChang
     private createTile(): void {
         let mainLayer: LayerSettings = this.layersCollection[0];
         let padding: number = 0;
-        if (mainLayer.isBaseLayer && (mainLayer.layerType === 'OSM' || mainLayer.layerType === 'Bing')) {
+        if (mainLayer.isBaseLayer && (mainLayer.layerType === 'OSM' || mainLayer.layerType === 'Bing' || mainLayer.layerType.toLowerCase() === 'tms')) {
             removeElement(this.element.id + '_tile_parent');
             // let elementRect: ClientRect = this.element.getBoundingClientRect();
             // let parentRect: ClientRect = this.element.parentElement.getBoundingClientRect();

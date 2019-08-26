@@ -690,6 +690,9 @@ export class LayerPanel {
                         if (baseLayer.layerType === 'Bing') {
                             let key: string = baseLayer.key;
                             tile.src = bing.getBingMap(tile, key, baseLayer.bingMapType, userLang, bing.imageUrl, bing.subDomains);
+                        }  else if (baseLayer.layerType.toLowerCase() === 'tms') {
+                            tile.src = this.urlTemplate.replace('level', zoomLevel.toString()).replace('tileX', tile.x.toString())
+                                .replace('tileY', (Math.pow(2, zoomLevel) - tile.y - 1).toString());
                         } else {
                             tile.src = this.urlTemplate.replace('level', zoomLevel.toString()).replace('tileX', tile.x.toString())
                                 .replace('tileY', tile.y.toString());
@@ -704,11 +707,14 @@ export class LayerPanel {
             if (!(layer.type === 'SubLayer' && layer.visible)) {
                 continue;
             }
-            if (layer.layerType === 'OSM' || layer.layerType === 'Bing') {
+            if (layer.layerType === 'OSM' || layer.layerType === 'Bing' || layer.layerType.toLowerCase() === 'tms') {
                 for (let baseTile of proxTiles) {
                     let subtile: Tile = extend(baseTile, {}, {}, true) as Tile;
                     if (layer.layerType === 'Bing') {
                         subtile.src = bing.getBingMap(subtile, layer.key, layer.bingMapType, userLang, bing.imageUrl, bing.subDomains);
+                    } else if (layer.layerType.toLowerCase() === 'tms') {
+                        subtile.src = layer.urlTemplate.replace('level', zoomLevel.toString()).replace('tileX', baseTile.x.toString())
+                        .replace('tileY', (Math.pow(2, zoomLevel) - baseTile.y - 1).toString());
                     } else {
                         subtile.src = layer.urlTemplate.replace('level', zoomLevel.toString()).replace('tileX', baseTile.x.toString())
                             .replace('tileY', baseTile.y.toString());
