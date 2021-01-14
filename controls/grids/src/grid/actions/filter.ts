@@ -475,7 +475,7 @@ export class Filter implements IAction {
                             }
                             return;
                         }
-                        this.addFilteredClass(this.fieldName);
+                        this.addFilteredClass(args.currentFilteringColumn);
                         this.refreshFilterSettings();
                         this.updateFilterMsg();
                         this.updateFilter();
