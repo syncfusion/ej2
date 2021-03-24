@@ -226,7 +226,7 @@ export class StockEvents extends BaseTooltip {
         //title size and toolbar height is added location for placing tooltip
         let svgElement: HTMLElement = this.getElement(this.chartId + '_StockEvents_Tooltip_svg');
         let isTooltip: boolean = (svgElement && parseInt(svgElement.getAttribute('opacity'), 10) > 0);
-        if (!isTooltip) {
+        if (!isTooltip || !this.stockEventTooltip) {
             if (getElement(this.chartId + '_StockEvents_Tooltip_svg')) {
                 remove(getElement(this.chartId + '_StockEvents_Tooltip'));
             }
