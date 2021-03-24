@@ -271,7 +271,9 @@ export class VerticalView extends ViewBase implements IRenderer {
         });
         if (rowIndex <= timeTrs.length) {
             removeClass(timeCellsWrap.querySelectorAll('.' + cls.HIDE_CHILDS_CLASS), cls.HIDE_CHILDS_CLASS);
-            addClass([timeTrs[rowIndex].lastElementChild as Element], cls.HIDE_CHILDS_CLASS);
+            if (timeTrs[rowIndex]) {
+                addClass([timeTrs[rowIndex].lastElementChild as Element], cls.HIDE_CHILDS_CLASS);
+            }
             prepend([currentTimeEle], timeCellsWrap);
             currentTimeEle.style.top = formatUnit(currentTimeEle.offsetTop - (currentTimeEle.offsetHeight / 2));
         }
