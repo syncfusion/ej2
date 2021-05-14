@@ -848,9 +848,11 @@ export class PivotEngine {
         lenE = lenE - 1;
         while (lenE > -1) {
             let index: number = this.fields.indexOf(this.excludeFields[lenE]);
-            this.fields.splice(index, 1);
-            if (this.fieldList) {
-                delete this.fieldList[this.excludeFields[lenE]];
+            if (index > -1) {
+                this.fields.splice(index, 1);
+                if (this.fieldList) {
+                    delete this.fieldList[this.excludeFields[lenE]];
+                }    
             }
             lenE--;
         }
