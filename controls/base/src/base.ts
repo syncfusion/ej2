@@ -10,11 +10,26 @@ const isColEName: RegExp = new RegExp('\]');
 
 /* tslint:disable:no-any */
 
-export interface AngularEventEmitter {
-    subscribe?: (generatorOrNext?: any, error?: any, complete?: any) => any;
+export interface AngularEventEmitter<T> {
+    closed: boolean;
+    hasError: boolean;
+    isStopped: boolean;
+    observers: any[];
+    thrownError: any;
+
+    _subscribe(subscriber: any): any;
+    _trySubscribe(subscriber: any): any;
+    asObservable(): any;
+    complete(): void;
+    emit(value?: T): void;
+    error(err: any): void;
+    lift<_R>(operator: any): any;
+    next(value?: T): void;
+    subscribe(generatorOrNext?: any, error?: any, complete?: any): any;
+    unsubscribe(): void;
 }
 
-export declare type EmitType<T> = AngularEventEmitter & ((arg?: T, ...rest: any[]) => void);
+export declare type EmitType<T> = AngularEventEmitter<T> & ((arg?: T, ...rest: any[]) => void);
 
 export interface BlazorDotnetObject {
     dispose(): void;
